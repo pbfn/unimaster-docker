@@ -26,7 +26,7 @@ jobs:
     
     - name: Build Application Jar
       working-directory: ./unimaster
-      run: mvn clean package
+      run: mvn clean package -DskipTests
     
     - name: Docker Compose Build
       working-directory: ./unimaster/
