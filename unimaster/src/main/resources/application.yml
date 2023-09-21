@@ -1,8 +1,16 @@
 server:
-  port: 8080
+  port: 80
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/unimaster
+    url: jdbc:mysql://localhost:3306/unimaster?useTimezone=true&serverTimezone=UTC
     username: developer
     password: 123456789
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+#    url: jdbc:mysql://unimaster-mysql.ccodligfk1fi.us-east-2.rds.amazonaws.com:3306/unimaster
+#    username: admin
+#    password: 4N9YxbERYqTWJNWw355H
