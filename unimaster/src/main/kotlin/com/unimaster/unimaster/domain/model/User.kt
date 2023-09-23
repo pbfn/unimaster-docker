@@ -1,23 +1,82 @@
 package com.unimaster.unimaster.domain.model
 
 import jakarta.persistence.*
-import kotlin.math.log
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 
-@Entity(name = "usuario")
-@Table(name = "usuario")
+@Entity
+@Table(name = "users")
 data class User(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idusuario")
-    var userId: Long = 0,
+    var id: Long = 0,
 
-    @Column(name = "login", nullable = false, length = 50)
-    var login: String,
+    @Column(name = "user_name", unique = true)
+    var userName: String? = null,
 
-    @Column(name = "senha", nullable = false, length = 80)
-    var password: String,
+    @Column(name = "full_name")
+    var fullName: String? = null,
 
-    @Column(name = "perfil", nullable = false, length = 50)
-    var profile: String
-)
+    @Column(name = "password")
+    private var password: String? = null,
+
+    @Column(name = "account_non_expired")
+    var accountNonExpired: Boolean? = null,
+
+    @Column(name = "account_non_locked")
+    var accountNonLocked: Boolean? = null,
+
+    @Column(name = "credentials_non_expired")
+    var credentialsNonExpired: Boolean? = null,
+
+    @Column(name = "enabled")
+    var enabled: Boolean? = null,
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_permission",
+        joinColumns = [JoinColumn(name = "id_user")],
+        inverseJoinColumns = [JoinColumn(name = "id_permission")]
+    )
+    var permissions: List<Permission>? = null
+
+) : UserDetails {
+
+    val roles: List<String?>
+        get() {
+            val roles: MutableList<String?> = ArrayList()
+            for (permission in permissions!!) {
+                roles.add(permission.description)
+            }
+            return roles
+        }
+
+    override fun getAuthorities(): Collection<GrantedAuthority> {
+        return permissions!!
+    }
+
+    override fun getPassword(): String {
+        return password!!
+    }
+
+    override fun getUsername(): String {
+        return userName!!
+    }
+
+    override fun isAccountNonExpired(): Boolean {
+       return accountNonExpired!!
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        return accountNonLocked!!
+    }
+
+    override fun isCredentialsNonExpired(): Boolean {
+        return credentialsNonExpired!!
+    }
+
+    override fun isEnabled(): Boolean {
+        return enabled!!
+    }
+}

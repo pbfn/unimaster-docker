@@ -1,6 +1,5 @@
 package com.unimaster.unimaster.domain.model
 
-import com.unimaster.unimaster.controller.dto.RegisterUserDTO
 import jakarta.persistence.*
 
 @Entity(name = "pessoa")
@@ -11,10 +10,6 @@ data class Person(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idpessoa")
     var personID: Long = 0,
-
-    @OneToOne
-    @JoinColumn(name = "idusuario") // Nome da coluna na tabela pessoa que é uma chave estrangeira para a tabela usuario
-    var user: User? = null,
 
     @Column(name = "cpf", nullable = false, length = 14)
     var cpf: String,

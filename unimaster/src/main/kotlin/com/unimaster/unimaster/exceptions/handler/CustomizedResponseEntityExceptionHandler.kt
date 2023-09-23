@@ -1,6 +1,7 @@
 package com.unimaster.unimaster.exceptions.handler
 
 import com.unimaster.unimaster.exceptions.ExceptionResponse
+import com.unimaster.unimaster.exceptions.InvalidJwtAuthenticationException
 import com.unimaster.unimaster.exceptions.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -35,5 +36,16 @@ class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler(
             request.getDescription(false)
         )
         return ResponseEntity<ExceptionResponse>(exceptioResponse, HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException::class)
+    fun handleInvalidJwtAuthenticationExceptions(ex: Exception, request: WebRequest) :
+            ResponseEntity<ExceptionResponse> {
+        val exceptioResponse = ExceptionResponse(
+            Date(),
+            ex.message,
+            request.getDescription(false)
+        )
+        return ResponseEntity<ExceptionResponse>(exceptioResponse, HttpStatus.FORBIDDEN)
     }
 }
