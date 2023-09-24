@@ -59,6 +59,7 @@ class SecurityConfig {
                         "/auth/refresh/**",
                         "/v3/api-docs/**",
                         "/swagger-ui.html/**",
+                        "/hello",
                         "/swagger-ui/**"
                     )
                     .permitAll()
