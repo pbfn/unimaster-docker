@@ -30,6 +30,7 @@ class PersonController(private val personService: PersonService) {
     fun create(@RequestBody person: PersonDTO): ResponseEntity<PersonDTO> {
 
         val newPerson = Person(
+            userID = person.userID.toLong(),
             cpf = person.cpf,
             name = person.nome,
             rg = person.rg,
@@ -55,7 +56,6 @@ class PersonController(private val personService: PersonService) {
             ApiResponse(responseCode = "200", description = "Sucesso")
         ]
     )
-
     fun findAllPerson(): ResponseEntity<*> {
         return ResponseEntity.ok(personService.findAll())
     }

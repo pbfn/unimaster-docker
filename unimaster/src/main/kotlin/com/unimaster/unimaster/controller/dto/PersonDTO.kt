@@ -14,5 +14,6 @@ data class PersonDTO(
     val estado: String = "",
     val nomePai: String = "",
     val nomeMae: String = "",
-    val salario: Double = 0.0
+    val salario: Double = 0.0,
+    val userID: String = ""
 )

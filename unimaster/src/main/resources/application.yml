@@ -8,9 +8,9 @@ security:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://unimaster-mysql.ccodligfk1fi.us-east-2.rds.amazonaws.com:3306/unimaster
-    username: admin
-    password: 4N9YxbERYqTWJNWw355H
+    url: jdbc:mysql://localhost:3306/unimaster
+    username: developer
+    password: 123456789
   jpa:
     hibernate:
       ddl-auto: none

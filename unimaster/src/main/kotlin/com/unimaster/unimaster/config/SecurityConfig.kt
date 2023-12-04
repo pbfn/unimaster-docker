@@ -60,6 +60,8 @@ class SecurityConfig {
                         "/v3/api-docs/**",
                         "/swagger-ui.html/**",
                         "/hello",
+                        "/permissions",
+                        "/history/**",
                         "/swagger-ui/**"
                     )
                     .permitAll()
