@@ -49,4 +49,7 @@ data class Person(
 
     @Column(name = "salario", nullable = false)
     var salary: Double,
+
+    @Column(name = "idusuario", nullable = false)
+    var userID: Long = 0
 )

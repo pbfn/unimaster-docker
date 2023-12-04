@@ -35,7 +35,7 @@ class AuthService {
     @Autowired
     private lateinit var repository: UserRepository
 
-    private val logger = Logger.getLogger(UserService::class.java.name)
+    private val logger = Logger.getLogger(AuthService::class.java.name)
 
 
     fun signin(data: AccountCrendentialsDTO): ResponseEntity<*> {
@@ -76,7 +76,7 @@ class AuthService {
                 val newuser = User(
                     userName = data.username,
                     password = encryptedPassword,
-                    fullName = data.fullname,
+                    fullName = "",
                     accountNonExpired = true,
                     accountNonLocked = true,
                     credentialsNonExpired = true,
