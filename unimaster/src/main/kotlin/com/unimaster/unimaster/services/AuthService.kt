@@ -4,9 +4,9 @@ import com.unimaster.unimaster.controller.dto.AccountCredentialsSignupDTO
 import com.unimaster.unimaster.controller.dto.AccountCrendentialsDTO
 import com.unimaster.unimaster.controller.dto.TokenDTO
 import com.unimaster.unimaster.domain.model.User
+import com.unimaster.unimaster.domain.repository.PersonRepository
 import com.unimaster.unimaster.domain.repository.UserRepository
 import com.unimaster.unimaster.security.jwt.JwtTokenProvider
-import io.swagger.v3.oas.annotations.Operation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
@@ -14,13 +14,8 @@ import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PostMapping
-import java.util.HashMap
 import java.util.logging.Logger
 
 @Service
@@ -34,6 +29,10 @@ class AuthService {
 
     @Autowired
     private lateinit var repository: UserRepository
+
+    @Autowired
+    private lateinit var personRepository: PersonRepository
+
 
     private val logger = Logger.getLogger(AuthService::class.java.name)
 
@@ -50,6 +49,11 @@ class AuthService {
             } else {
                 throw UsernameNotFoundException("Username $username not found!")
             }
+            val person = personRepository.findByUserId(user.id)
+            if (person != null) {
+                tokenResponse.idPessoa = person.personID
+            }
+            tokenResponse.idUser = user.id
             ResponseEntity.ok(tokenResponse)
         } catch (e: AuthenticationException) {
             throw BadCredentialsException("Invalid username or password supplied")

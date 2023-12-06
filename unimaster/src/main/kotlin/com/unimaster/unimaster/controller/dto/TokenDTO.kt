@@ -8,5 +8,7 @@ data class TokenDTO(
     val created: Date? = null,
     val expiration: Date? = null,
     val accessToken: String? = null,
-    val refreshToken: String? = null
+    val refreshToken: String? = null,
+    var idUser: Long? = 0,
+    var idPessoa: Long? = 0
 )

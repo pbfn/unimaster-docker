@@ -2,7 +2,7 @@ package com.unimaster.unimaster.domain.model
 
 import jakarta.persistence.*
 
-@Entity(name = "pessoa")
+@Entity(name = "Person")
 @Table(name = "pessoa")
 data class Person(
 

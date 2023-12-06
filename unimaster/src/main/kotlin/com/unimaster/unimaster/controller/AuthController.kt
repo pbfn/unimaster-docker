@@ -3,19 +3,19 @@ package com.unimaster.unimaster.controller
 import com.unimaster.unimaster.controller.dto.AccountCredentialsSignupDTO
 import com.unimaster.unimaster.controller.dto.AccountCrendentialsDTO
 import com.unimaster.unimaster.services.AuthService
+import com.unimaster.unimaster.services.PersonService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 
 @Tag(name = "Authentication Endpoint")
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RestController
 @RequestMapping("/auth")
-class AuthController {
+class AuthController(private val personService: PersonService) {
 
     @Autowired
     lateinit var authService: AuthService
