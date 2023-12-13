@@ -26,4 +26,12 @@ class PersonService {
         }
         return repository.save(model)
     }
+
+    fun update(model:Person): Person{
+        logger.info("Creating one person with login is ${model.personID}!")
+        if (!repository.existsById(model.personID)) {
+            throw IllegalArgumentException("Não existe uma pessoa com id ${model.personID}")
+        }
+        return repository.save(model)
+    }
 }

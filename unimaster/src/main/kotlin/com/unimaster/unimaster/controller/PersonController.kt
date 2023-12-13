@@ -53,6 +53,39 @@ class PersonController() {
         return ResponseEntity.ok(person)
     }
 
+    @PutMapping("{idPessoa}",
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    @Operation(summary = "Update user", description = "Atualiza uma pessoa pessoa")
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "Sucesso")
+        ]
+    )
+    fun update(@PathVariable("idPessoa") idPessoa: String,@RequestBody person: PersonDTO): ResponseEntity<PersonDTO> {
+
+        val newPerson = Person(
+            personID = idPessoa.toLong(),
+            userID = person.userID.toLong(),
+            cpf = person.cpf,
+            name = person.nome,
+            rg = person.rg,
+            telephone = person.telefone,
+            cep = person.cep,
+            address = person.logradouro,
+            number = person.numero,
+            neighborhood = person.bairro,
+            city = person.cidade,
+            state = person.estado,
+            fatherName = person.nomePai,
+            motherName = person.nomeMae,
+            salary = person.salario
+        )
+        personService.update(newPerson)
+        return ResponseEntity.ok(person)
+    }
+
     @GetMapping
     @Operation(summary = "Get all persons", description = "Get all persons")
     @ApiResponses(

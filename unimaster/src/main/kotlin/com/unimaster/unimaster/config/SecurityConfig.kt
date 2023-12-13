@@ -62,11 +62,12 @@ class SecurityConfig {
                         "/hello",
                         "/permissions",
                         "/history/**",
+                        "/person/**",
                         "/swagger-ui/**"
                     )
                     .permitAll()
                     .requestMatchers("/api/**").authenticated()
-                    .requestMatchers("/person/**").authenticated()
+                    //.requestMatchers("/person/**").authenticated()
                     .requestMatchers("/users").denyAll()
             }
             .cors()
